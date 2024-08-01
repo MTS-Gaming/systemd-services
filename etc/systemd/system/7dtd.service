@@ -1,0 +1,23 @@
+[Unit]
+Description=7 Days to Die
+After=network.target nss-lookup.target
+ 
+[Service]
+Type=simple
+PIDFile=/run/7dtd.pid
+User=steam
+WorkingDirectory=/opt/7dtd_release
+
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/7dtd_release /home/steam /run /tmp /var/tmp
+ 
+ExecStartPre=/usr/games/steamcmd +force_install_dir /opt/7dtd_release +login anonymous +app_update 294420 validate +quit
+ExecStart=/opt/7dtd_release/startserver.sh -configfile=/opt/7dtd_release/serverconfig.xml
+ 
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=always
+ 
+[Install]
+WantedBy=multi-user.target
