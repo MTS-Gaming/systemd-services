@@ -6,14 +6,14 @@ After=network.target nss-lookup.target
 Type=simple
 PIDFile=/run/7dtd.pid
 User=steam
-WorkingDirectory=/opt/7dtd_release
+WorkingDirectory=/opt/7dtd
 
 PrivateTmp=true
 ProtectSystem=strict
-ReadWritePaths=/opt/7dtd_release /home/steam /run /tmp /var/tmp
+ReadWritePaths=/opt/7dtd /home/steam /run /tmp /var/tmp
  
-ExecStartPre=/usr/games/steamcmd +force_install_dir /opt/7dtd_release +login anonymous +app_update 294420 validate +quit
-ExecStart=/opt/7dtd_release/startserver.sh -configfile=/opt/7dtd_release/serverconfig.xml
+ExecStartPre=/usr/games/steamcmd +force_install_dir /opt/7dtd +login anonymous +app_update 294420 validate +quit
+ExecStart=/opt/7dtd/startserver.sh -configfile=/home/steam/serverconfig.xml
  
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s QUIT $MAINPID
